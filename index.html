@@ -93,17 +93,17 @@ car.onload = function(){
   draw();
 };
 
-// 🔥 ESCALA
+// ESCALA
 let metros_max = 100;
 let ancho_px = 1100;
 let escala = ancho_px / metros_max;
 
-// 🚗 CARRO
+// CARRO
 let largo_auto_m = 4.5;
 let ancho_auto_px = largo_auto_m * escala * 1.3;
 let alto_auto_px = 30;
 
-// 🔥 MARGEN PARA QUE SE VEA DESDE EL INICIO
+// MARGEN
 let margen = 120;
 
 function start(){
@@ -149,10 +149,7 @@ function draw(){
 
   let meta = d * escala + margen;
 
-  // 🔥 POSICIÓN DE LA PUNTA
   let x_frente = v * t_real * escala + margen;
-
-  // 🔥 DIBUJO DEL CARRO DESDE ATRÁS
   let x = x_frente - ancho_auto_px;
 
   ctx.clearRect(0,0,1100,300);
@@ -178,7 +175,7 @@ function draw(){
   ctx.stroke();
   ctx.setLineDash([]);
 
-  // 🏁 META
+  // META
   ctx.strokeStyle = "yellow";
   ctx.lineWidth = 3;
   ctx.beginPath();
@@ -189,13 +186,36 @@ function draw(){
   ctx.fillStyle = "black";
   ctx.fillText("META", meta - 20, 195);
 
-  // 🚗 CARRO
+  // CARRO
   if(car.complete){
     ctx.drawImage(car, x, 210 - alto_auto_px, ancho_auto_px, alto_auto_px);
   }
 
-  // ⏱️ Tiempo
-  info.innerHTML = "Tiempo medido: " + t_real.toFixed(2) + " s";
+  // 🖥️ PANTALLA DIGITAL
+  let panel_x = 850;
+  let panel_y = 20;
+  let panel_w = 220;
+  let panel_h = 80;
+
+  ctx.fillStyle = "black";
+  ctx.fillRect(panel_x, panel_y, panel_w, panel_h);
+
+  ctx.strokeStyle = "#39ff14";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(panel_x, panel_y, panel_w, panel_h);
+
+  ctx.fillStyle = "#39ff14";
+  ctx.font = "28px monospace";
+  ctx.textAlign = "center";
+
+  let tiempo_txt = t_real.toFixed(2) + " s";
+
+  ctx.fillText(
+    tiempo_txt,
+    panel_x + panel_w/2,
+    panel_y + panel_h/2 + 10
+  );
+
 }
 
 </script>
